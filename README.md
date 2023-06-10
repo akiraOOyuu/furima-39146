@@ -1,24 +1,58 @@
-# README
+# furimaのER図
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## user テーブル
 
-Things you may want to cover:
+| Colum              | Type | Option     |
+|--------------------|------|------------|
+| email              |string|null: false |
+| encrypted_password |string|null: false |
+| nickname           |text  |null: false |
+| first name         |text  |null: false |
+| last name          |text  |null: false |
+| second first name  |text  |null: false |
+| second last  name  |text  |null: false |
+| date of birth      |string|null: false |
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+## Association
 
-* Database creation
+- has_many :items
+- belong_to :pays
 
-* Database initialization
+## items テーブル
 
-* How to run the test suite
+| Colum              | Type      | Option                       |
+|--------------------|-----------|------------------------------|
+| title              |text       |null: false                   |
+| text               |text       |null: false                   |
+| price              |string     |null: false                   |
+| user               |references |null: false, foreign_key: true|
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Association
 
-* ...
+- belong_to :user
+- belong_to :pays
+
+## pays テーブル
+
+| Colum              | Type      | Option                       |
+|--------------------|-----------|------------------------------|
+| delivery           |references |null: false                   |
+| item               |references |null: false                   |
+| user               |references |null: false, foreign_key: true|
+
+- belongs_to :item
+- belongs_to :user
+
+## delivery テーブル
+
+| Colum              | Type      | Option                       |
+|--------------------|-----------|------------------------------|
+| address            |text       |null: false                   |
+| item               |references |null: false                   |
+| user               |references |null: false, foreign_key: true|
+
+- belongs_to :item
+- belongs_to :user
