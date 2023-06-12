@@ -10,7 +10,7 @@
 | first_name         |string|null: false               |
 | last_name          |string|null: false               |
 | first_name_reading |string|null: false               |
-| last _name_reading |string|null: false               |
+| last_name_reading  |string|null: false               |
 | birth_date         |date  |null: false               |
 
 
@@ -18,29 +18,33 @@
 ## Association
 
 - has_many :items
-- has_one :items_user
+- has_many :pays
 
 ## items テーブル
 
 | Colum              | Type      | Option                       |
 |--------------------|-----------|------------------------------|
-| title              |text       |null: false                   |
-| text               |text       |null: false                   |
-| price              |string     |null: false                   |
-| user_id            |references |null: false, foreign_key: true|
+| title              |string     |null: false                   |
+| content            |text       |null: false                   |
+| category           |string     |null: false                   |
+| status             |string     |null: false                   |
+| postage            |string     |null: false                   |
+| area               |string     |null: false                   |
+| deli_days          |string     |null: false                   |
+| user               |references |null: false, foreign_key: true|
 
 
 ### Association
 
 - belong_to :user
-- has_one :items_user
+- has_one :pays
 
-## items_users テーブル
+## pays テーブル
 
 | Colum              | Type      | Option                       |
 |--------------------|-----------|------------------------------|
-| item_id            |references |null: false, foreign_key: true|
-| user_id            |references |null: false, foreign_key: true|
+| item               |references |null: false, foreign_key: true|
+| user               |references |null: false, foreign_key: true|
 
 ### Association
 
@@ -55,12 +59,13 @@
 | prefecture_id      |integer    |null: false                   |
 | city               |string     |null: false                   |
 | block              |string     |null: false                   |
-| building           |string     |null: false                   |
+| building           |string     |                              |
 | item               |references |null: false, foreign_key: true|
 | user               |references |null: false, foreign_key: true|
+| pays               |references |null: false, foreign_key: true|
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
-- belong_to :items_users
+- belong_to :pays
