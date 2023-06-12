@@ -37,7 +37,7 @@
 ### Association
 
 - belong_to :user
-- has_one :pays
+- has_one :pay
 
 ## pays テーブル
 
@@ -50,6 +50,7 @@
 
 - belongs_to :item
 - belongs_to :user
+- has_one :deli
 
 ## delis テーブル
 
@@ -60,12 +61,8 @@
 | city               |string     |null: false                   |
 | block              |string     |null: false                   |
 | building           |string     |                              |
-| item               |references |null: false, foreign_key: true|
-| user               |references |null: false, foreign_key: true|
-| pays               |references |null: false, foreign_key: true|
+| pay                |references |null: false, foreign_key: true|
 
 ### Association
 
-- belongs_to :item
-- belongs_to :user
-- belong_to :pays
+- belongs_to :pay
