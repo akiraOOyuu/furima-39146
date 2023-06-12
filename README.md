@@ -1,24 +1,24 @@
 # furimaのER図
 
-## user テーブル
+## users テーブル
 
-| Colum              | Type | Option     |
-|--------------------|------|------------|
-| email              |string|null: false |
-| encrypted_password |string|null: false |
-| nickname           |text  |null: false |
-| first name         |text  |null: false |
-| last name          |text  |null: false |
-| second first name  |text  |null: false |
-| second last  name  |text  |null: false |
-| date of birth      |string|null: false |
+| Colum              | Type | Option                   |
+|--------------------|------|--------------------------|
+| email              |string|null: false , unique: true|
+| encrypted_password |string|null: false               |
+| nickname           |string|null: false               |
+| first_name         |string|null: false               |
+| last_name          |string|null: false               |
+| first_name_reading |string|null: false               |
+| last _name_reading |string|null: false               |
+| birth_date         |date  |null: false               |
 
 
 
 ## Association
 
 - has_many :items
-- belong_to :pays
+- has_one :items_user
 
 ## items テーブル
 
@@ -27,32 +27,40 @@
 | title              |text       |null: false                   |
 | text               |text       |null: false                   |
 | price              |string     |null: false                   |
-| user               |references |null: false, foreign_key: true|
+| user_id            |references |null: false, foreign_key: true|
 
 
 ### Association
 
 - belong_to :user
-- belong_to :pays
+- has_one :items_user
 
-## pays テーブル
+## items_users テーブル
 
 | Colum              | Type      | Option                       |
 |--------------------|-----------|------------------------------|
-| delivery           |references |null: false                   |
-| item               |references |null: false                   |
-| user               |references |null: false, foreign_key: true|
+| item_id            |references |null: false, foreign_key: true|
+| user_id            |references |null: false, foreign_key: true|
+
+### Association
 
 - belongs_to :item
 - belongs_to :user
 
-## delivery テーブル
+## delis テーブル
 
 | Colum              | Type      | Option                       |
 |--------------------|-----------|------------------------------|
-| address            |text       |null: false                   |
-| item               |references |null: false                   |
+| postcode           |string     |null: false                   |
+| prefecture_id      |integer    |null: false                   |
+| city               |string     |null: false                   |
+| block              |string     |null: false                   |
+| building           |string     |null: false                   |
+| item               |references |null: false, foreign_key: true|
 | user               |references |null: false, foreign_key: true|
+
+### Association
 
 - belongs_to :item
 - belongs_to :user
+- belong_to :items_users
