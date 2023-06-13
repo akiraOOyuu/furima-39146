@@ -37,7 +37,7 @@
 
 ### Association
 
-- belong_to :user
+- belongs_to :user
 - has_one :pay
 
 ## pays テーブル
