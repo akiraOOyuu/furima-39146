@@ -24,14 +24,13 @@
 
 | Colum              | Type      | Option                       |
 |--------------------|-----------|------------------------------|
-| image              |integer    |null: false                   |
 | title              |string     |null: false                   |
 | content            |text       |null: false                   |
 | category_id        |integer    |null: false                   |
 | status_id          |integer    |null: false                   |
 | postage_id         |integer    |null: false                   |
 | prefecture_id      |integer    |null: false                   |
-| deli_days_id       |integer    |null: false                   |
+| deli_day_id       |integer    |null: false                   |
 | user               |references |null: false, foreign_key: true|
 
 
@@ -62,7 +61,7 @@
 | city               |string     |null: false                   |
 | block              |string     |null: false                   |
 | building           |string     |                              |
-| phone_number       |integer    |null: false                   |
+| phone_number       |string    |null: false                   |
 | pay                |references |null: false, foreign_key: true|
 
 ### Association
