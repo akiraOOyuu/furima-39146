@@ -16,10 +16,11 @@ class Item < ApplicationRecord
   validates :price          ,presence: true
   validates :usre           ,presence: true
 
+  # 選択しないとエラーメッセージを表示させる
   validates :category_id, 
             :status_id, 
             :postage_id, 
             :prefecture_id, 
             :deli_day_id, 
-            numericality: { other_than: 1 }  
+            numericality: { other_than: 1 , message: "can't be blank"}
 end
