@@ -1,22 +1,22 @@
 class ItemsController < ApplicationController
-
+  
   def index
-   
-
+   @items = Item.all
   end
-#   def new
 
-#   end
-#   def create
+  def new
+   
+   @item = Item.new
+  end
 
-#   end
+  def create
+    @item = Item.find(params[:id])
+  end
+
 #   def show
 
 #   end
 # end
 
-# private
 
-# def items_params
-#   params.require(:items).permit( :title).merge(user_id: current_user.id)
 end
