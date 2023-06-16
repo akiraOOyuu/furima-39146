@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:id])
+   @item = Item.new(item_params)
   end
 
 #   def show
@@ -18,5 +18,17 @@ class ItemsController < ApplicationController
 #   end
 # end
 
+private
 
+    def item_params
+      params.require(:items).permit( 
+        :title,
+        :content,
+        :category_id,
+        :status_id,
+        :postage_id,
+        :prefecture_id,
+        :deli_day_id,
+        :price).merge(user_id: current_user.id)
+  end
 end
