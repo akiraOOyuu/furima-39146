@@ -1,11 +1,15 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  # before_action :calculate,only: [:new, :show]
+
+
   def index
    @items = Item.all
   end
 
   def new
     @item = Item.new
+
   end
 
   def create
@@ -20,6 +24,7 @@ class ItemsController < ApplicationController
   end
   def show
     @item = Item.find(params[:id])
+   
   end
 
 
@@ -39,4 +44,5 @@ private
         ).merge(user_id: current_user.id)
 
   end
+ 
 end
