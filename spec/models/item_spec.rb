@@ -1,5 +1,78 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @user = FactoryBot.create(:user) # 適切なユーザーを作成
+    @item = FactoryBot.build(:item, user: @user) # @user を関連づけた @item を作成
+  end
+
+  describe '商品出品の保存' do
+    context '商品投稿が投稿できる場合' do
+      
+      it '画像とタイトル、テキスト、カテゴリー、商品の状態、配送料の負担、発送元の地域、発送までの日数、販売価格があれば投稿できる' do
+        expect(@item).to be_valid
+      end
+      it '販売価格が半角数字だと投稿できる' do
+        @item.price
+      end
+      it '販売価格が300から9999999だと投稿できる' do
+        @item.price = Faker::Number.between(from: 100, to: 9999)
+        expect(@item).to be_valid
+      end
+    end
+
+    context '商品出品できない場合' do       #異常系
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @item.user = nil
+        @item.valid?
+         expect(@item.errors.full_messages).to include('User must exist')
+    end
+      it 'タイトルが空では投稿できない' do
+         @item.title = ''
+         @item.valid?
+         expect(@item.errors.full_messages).to include("Title can't be blank") 
+      end     
+      it 'テキストが空では投稿できない' do
+        @item.content = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Content can't be blank") 
+     end     
+      it '画像が空では投稿できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank") 
+      end
+      it '販売価格が全角数字では投稿できない' do
+        @item.price = '１１１１'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number") 
+      end
+      it 'カテゴリーidが初期値では投稿できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank") 
+      end     
+      it '商品の状態idが初期値では投稿できない' do
+        @item.status_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank") 
+      end
+      it '配送料負担idが初期値では投稿できない' do
+        @item.postage_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Postage can't be blank") 
+      end
+      it '発送元の地域idが初期値では投稿できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank") 
+      end 
+      it '発送までの日数idが初期値では投稿できない' do
+        @item.deli_day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Deli day can't be blank") 
+      end 
+     
+    end
+  end
 end
