@@ -6,8 +6,7 @@
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
     <%= form_with model: @item, url: items_path, method: :post, local: true do |f| %>
-
-    <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
+      <%# エラーメッセージを表示するテンプレ %>
     <%= render 'devise/shared/error_messages', model: f.object %>
 
     <%# 商品画像 %>
@@ -57,7 +56,7 @@
         <%= f.collection_select(:status_id, Status.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
       </div>
     </div>
-    <%# /商品の詳細 %>
+
 
     <%# 配送について %>
     <div class="items-detail">

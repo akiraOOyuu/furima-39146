@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @user = FactoryBot.create(:user) # 適切なユーザーを作成
-    @item = FactoryBot.build(:item, user: @user) # @user を関連づけた @item を作成
+    @item = FactoryBot.build(:item) 
   end
 
   describe '商品出品の保存' do
@@ -46,6 +45,16 @@ RSpec.describe Item, type: :model do
         @item.price = '１１１１'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number") 
+      end
+      it '販売価格が300円未満では投稿できない' do
+        @item.price = '100'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300") 
+      end
+      it '販売価格が9,999,999円を超える商品では投稿できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999") 
       end
       it 'カテゴリーidが初期値では投稿できない' do
         @item.category_id = 1

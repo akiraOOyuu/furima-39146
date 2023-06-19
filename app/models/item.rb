@@ -16,8 +16,7 @@ class Item < ApplicationRecord
   validates :content        ,presence: true 
   validates :price          ,presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
   validates_format_of       :price, with: /\A\d+\z/
-  validates :user_id        ,presence: true
-  validates :image          ,presence: true, unless: :was_attached?
+  validates :image          ,presence: true
 
   # 選択しないとエラーメッセージを表示させる
   validates :category_id, numericality:   { other_than: 1 , message: "can't be blank"}
@@ -26,7 +25,5 @@ class Item < ApplicationRecord
   validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :deli_day_id, numericality:   { other_than: 1 , message: "can't be blank"}
 
-  def was_attached?
-    self.image.attached?
-  end
+
 end
