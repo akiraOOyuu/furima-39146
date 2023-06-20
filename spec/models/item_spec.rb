@@ -12,7 +12,8 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
       it '販売価格が半角数字だと投稿できる' do
-        @item.price
+        @item.price = Faker::Number.between(from: 300, to: 9_999_999)
+        expect(@item).to be_valid
       end
       it '販売価格が300から9999999だと投稿できる' do
         @item.price = Faker::Number.between(from: 100, to: 9999)
@@ -40,6 +41,11 @@ RSpec.describe Item, type: :model do
         @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank") 
+      end
+      it '販売価格が空では投稿できない' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank") 
       end
       it '販売価格が全角数字では投稿できない' do
         @item.price = '１１１１'

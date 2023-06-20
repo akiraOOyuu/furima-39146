@@ -14,8 +14,7 @@ class Item < ApplicationRecord
   
   validates :title          ,presence: true
   validates :content        ,presence: true 
-  validates :price          ,presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
-  validates_format_of       :price, with: /\A\d+\z/
+  validates :price          ,presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
   validates :image          ,presence: true
 
   # 選択しないとエラーメッセージを表示させる
