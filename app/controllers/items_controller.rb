@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action :calculate,only: [:new, :show]
+  before_action :restrict_direct_access, only: [:edit, :update, :destroy]
 
 
   def index
@@ -62,5 +62,9 @@ private
         ).merge(user_id: current_user.id)
 
   end
- 
-end
+  def restrict_direct_access
+    if request.referrer.nil? || URI(request.referrer).host != request.host
+      redirect_to root_path
+    end
+  end
+ end
