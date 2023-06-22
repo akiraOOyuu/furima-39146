@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action :calculate,only: [:new, :show]
+  before_action :restrict_direct_access, only: [:edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update]
 
 
   def index
@@ -22,13 +23,23 @@ class ItemsController < ApplicationController
       render :new
     end
   end
+
   def show
-    @item = Item.find(params[:id])
+   
   end
-  # def edit
-  #   @item = Item.find(params[:id])
-    
-  # end
+
+  def edit
+  end
+
+  def update
+    @item.update(item_params)
+    if @item.update(item_params)
+    redirect_to item_path(@item)
+    else
+      render :edit
+    end
+   end
+  
   # def destroy
     
   # end
@@ -49,5 +60,12 @@ private
         ).merge(user_id: current_user.id)
 
   end
- 
-end
+  def set_item
+    @item = Item.find(params[:id])
+  end
+  def restrict_direct_access
+    if request.referrer.nil? || URI(request.referrer).host != request.host
+      redirect_to root_path
+    end
+  end
+ end
