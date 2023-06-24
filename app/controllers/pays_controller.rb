@@ -2,6 +2,8 @@ class PaysController < ApplicationController
 
   def index
     @pays = Pay.new
+    @item = Item.new
+    @item = Item.find(params[:id])
   end
   def create
     @pay = Pay.new(pay_params)
