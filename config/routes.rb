@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :items do
     resources :pays ,only:[:index,:create] do
-
     end
   end
 end
