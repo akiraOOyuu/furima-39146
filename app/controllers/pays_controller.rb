@@ -1,24 +1,33 @@
 class PaysController < ApplicationController
 
   def index
-    @pays = Pay.new
+    @pay_deli = PayDeli.new
     @item = Item.find(params[:item_id])
+    @pays = Pay.all
   end
+  
   def create
-    @pay = Pay.new(pay_params)
     @item = Item.find(params[:item_id])
-    @pay.item = @item 
-    if @pay.valid?
-      @pay.save
-      return redirect_to root_path
+    @pay_deli = PayDeli.new(pay_params)
+    if @pay_deli.valid?
+       @pay_deli.save
+       redirect_to root_path
     else
-      render 'index'
+      render :index
     end
+     
+     
   end
 
   private
-
-def pay_params
-  params.permit(item_attributes: [:id, :price], user_attributes: [:id])
+  def pay_params 
+    params.require(:pay_deli).permit(
+      :postcode, 
+      :prefecture_id, 
+      :city, 
+      :block,
+      :building, 
+      :phone_number,
+      :pay_id).merge(item_id: params[:item_id], user_id: current_user.id)
   end
-end
+ end

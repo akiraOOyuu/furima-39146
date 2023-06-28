@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 2023_06_24_114729) do
   end
 
   create_table "delis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "postcord", null: false
-    t.integer "prefectur_id", null: false
-    t.string "citey", null: false
+    t.string "postcode", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city", null: false
     t.string "block", null: false
     t.string "building"
     t.string "phone_number", null: false
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2023_06_24_114729) do
   end
 
   create_table "pays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
