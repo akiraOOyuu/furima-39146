@@ -1,7 +1,6 @@
 class PayDeli
   include ActiveModel::Model
-  attr_accessor :postcode, :prefecture_id, :city, :block, :building, :phone_number, :item_id, :user_id, :pay_id
- 
+  attr_accessor :postcode, :prefecture_id, :city, :block, :building, :phone_number, :item_id, :user_id, :pay_id, :token
   with_options presence: true do
     validates :postcode        ,presence: true, format: { with: /\A\d{3}[-]\d{4}\z/, message: "is not a valid format" }
     validates :city            ,presence: true
@@ -11,6 +10,7 @@ class PayDeli
   
   end
   validates :prefecture_id   ,presence: true , numericality: {other_than: 0, message: "can't be blank"}
+  validates :token, presence: true
  
   def save
     # payに保存するカラム

@@ -6,6 +6,7 @@ class Deli < ApplicationRecord
   # validates :city            ,presence: true
   # validates :block           ,presence: true
   # validates :phone_number    ,presence: true
+
  
 
 end
