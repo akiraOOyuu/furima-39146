@@ -35,8 +35,7 @@
     <%# エラーメッセージを表示するテンプレ %>
     <%= render 'error_messages', model: @pay_deli %>
     <%# カード情報の入力 %>
-     <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
-    <div class='credit-card-form' >
+         <div class='credit-card-form' >
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
       </h1>
@@ -126,7 +125,6 @@
       <%= f.submit "購入" ,class:"buy-red-btn", id:"button" %>
     </div>
     <% end %>
-  <% end %>
   </div>
 </div>
 <%= render "devise/shared/second-footer"%>
