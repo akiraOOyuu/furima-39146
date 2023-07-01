@@ -1,5 +1,5 @@
 class PaysController < ApplicationController
-
+  before_action :restrict_direct_access, only: [:index, :create]
   def index
     @pay_deli = PayDeli.new
     @item = Item.find(params[:item_id])
@@ -24,14 +24,19 @@ class PaysController < ApplicationController
   end
 
   private
-  def pay_params 
-    params.require(:pay_deli).permit(
-      :postcode, 
-      :prefecture_id, 
-      :city, 
-      :block,
-      :building, 
-      :phone_number,
-      :pay_id).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+    def pay_params 
+      params.require(:pay_deli).permit(
+        :postcode, 
+        :prefecture_id, 
+        :city, 
+        :block,
+        :building, 
+        :phone_number,
+        :pay_id).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+    end
+    def restrict_direct_access
+      if request.referrer.nil? || URI(request.referrer).host != request.host
+        redirect_to root_path
+      end
+    end
   end
-end
