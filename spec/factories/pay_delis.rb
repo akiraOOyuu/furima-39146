@@ -4,8 +4,10 @@ FactoryBot.define do
       prefecture_id   {5}
        city           {"横浜"}
        block          {"1-1"}
+       building       {"ビル"}
        phone_number   {"0901234678"}
-       pay_id         {2}
+       item_id        {2}
+       user_id        {2}
       token {"tok_abcdefghijk00000000000000000"}
   end
 end

@@ -51,21 +51,46 @@ RSpec.describe PayDeli, type: :model do
         @pay_deli.valid?
         expect(@pay_deli.errors.full_messages).to include("City can't be blank")
       end
+      it 'blockが空だと保存できないこと' do
+        @pay_deli.block = ""
+        @pay_deli.valid?
+        expect(@pay_deli.errors.full_messages).to include("Block can't be blank")
+      end
     
       it 'phone_numberが空だと保存できないこと' do
         @pay_deli.phone_number = ""
         @pay_deli.valid?
         expect(@pay_deli.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが10文字、11文字でないと保存できないこと' do
-        @pay_deli.phone_number = "123456789"
+      it 'phone_numberは数字以外が含まれると保存できないこと' do
+        @pay_deli.phone_number = "11aa111111"
         @pay_deli.valid?
-        expect(@pay_deli.errors.full_messages).to include("Phone number Postcode is not a valid format")
+        expect(@pay_deli.errors.full_messages).to include("Phone number is not a valid format")
       end
-      it 'tekenが空だと保存できないこと' do
+      it 'phone_numberが9文字以下では保存できないこと' do
+        @pay_deli.phone_number = "12345678"
+        @pay_deli.valid?
+        expect(@pay_deli.errors.full_messages).to include("Phone number is not a valid format")
+      end
+      it 'phone_numberが11文字以上では保存できないこと' do
+        @pay_deli.phone_number = "12345678910111"
+        @pay_deli.valid?
+        expect(@pay_deli.errors.full_messages).to include("Phone number is not a valid format")
+      end
+      it 'tokenが空だと保存できないこと' do
         @pay_deli.token= nil
         @pay_deli.valid?
         expect(@pay_deli.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐付いていないと保存できないこと' do
+        @pay_deli.user_id= nil
+        @pay_deli.valid?
+        expect(@pay_deli.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと保存できない' do
+        @pay_deli.item_id= nil
+        @pay_deli.valid?
+        expect(@pay_deli.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

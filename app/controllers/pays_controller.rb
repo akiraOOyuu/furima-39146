@@ -1,6 +1,6 @@
 class PaysController < ApplicationController
   before_action :restrict_direct_access, only: [:index, :create]
-  before_action :set_item
+  before_action :set_item, only: [:index, :create]
 
   def index
     @pay_deli = PayDeli.new
@@ -23,6 +23,7 @@ class PaysController < ApplicationController
     def set_item
       @item = Item.find(params[:item_id])
     end
+
     def pay_params 
       params.require(:pay_deli).permit(
         :postcode, 
@@ -30,7 +31,7 @@ class PaysController < ApplicationController
         :city, 
         :block,
         :building, 
-        :phone_number,
+        :phone_number
         ).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
     end
     def pay_item
