@@ -1,22 +1,17 @@
 class PaysController < ApplicationController
   before_action :restrict_direct_access, only: [:index, :create]
+  before_action :set_item
+
   def index
     @pay_deli = PayDeli.new
-    @item = Item.find(params[:item_id])
     @pays = Pay.all
   end
   
   def create
-      @item = Item.find(params[:item_id])
+     
       @pay_deli = PayDeli.new(pay_params)
       if @pay_deli.valid?
         @pay_deli.save
-        Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-        Payjp::Charge.create(
-          amount: @item.price,
-          card: pay_params[:token],
-          currency: 'jpy'
-        )
         redirect_to root_path
       else
         render :index
@@ -24,6 +19,10 @@ class PaysController < ApplicationController
   end
 
   private
+
+    def set_item
+      @item = Item.find(params[:item_id])
+    end
     def pay_params 
       params.require(:pay_deli).permit(
         :postcode, 
@@ -32,7 +31,14 @@ class PaysController < ApplicationController
         :block,
         :building, 
         :phone_number,
-        :pay_id).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+        ).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+    end
+    def pay_item
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: pay_params[:token],
+        currency: 'jpy')
     end
     def restrict_direct_access
       if request.referrer.nil? || URI(request.referrer).host != request.host
