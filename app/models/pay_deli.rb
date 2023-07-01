@@ -6,11 +6,12 @@ class PayDeli
     validates :city            ,presence: true
     validates :block           ,presence: true
     validates :phone_number    ,presence: true, format: { with: /\A\d{10,11}\z/, message: "Postcode is not a valid format"}
-
-  
   end
+
   validates :prefecture_id   ,presence: true , numericality: {other_than: 1, message: "can't be blank"}
   validates :token, presence: true
+  validates :user_id, presence: true
+  validates :item_id, presence: true
  
   def save
     # payに保存するカラム
