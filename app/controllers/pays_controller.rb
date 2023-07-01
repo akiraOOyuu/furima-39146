@@ -8,8 +8,7 @@ class PaysController < ApplicationController
   end
   
   def create
-     
-      @pay_deli = PayDeli.new(pay_params)
+        @pay_deli = PayDeli.new(pay_params)
       if @pay_deli.valid?
         @pay_deli.save
         redirect_to root_path
