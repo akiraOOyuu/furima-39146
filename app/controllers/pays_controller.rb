@@ -11,7 +11,7 @@ class PaysController < ApplicationController
       @pay_deli = PayDeli.new(pay_params)
       if @pay_deli.valid?
         @pay_deli.save
-        Payjp.api_key = "sk_test_6eb5e5b08d486702b90f50d6"
+        Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
         Payjp::Charge.create(
           amount: @item.price,
           card: pay_params[:token],
