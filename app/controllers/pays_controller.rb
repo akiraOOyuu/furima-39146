@@ -21,7 +21,7 @@ class PaysController < ApplicationController
       else
         render :index
       end
-    end
+  end
 
   private
   def pay_params 
@@ -34,4 +34,4 @@ class PaysController < ApplicationController
       :phone_number,
       :pay_id).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
   end
- end
+end

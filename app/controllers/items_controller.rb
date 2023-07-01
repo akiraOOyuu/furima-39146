@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
-   end
+  end
   
   def destroy
     item = Item.find(params[:id])
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-private
+  private
 
     def item_params
       params.require(:item).permit( 
@@ -61,13 +61,13 @@ private
         :price
         ).merge(user_id: current_user.id)
 
-  end
-  def set_item
-    @item = Item.find(params[:id])
-  end
-  def restrict_direct_access
-    if request.referrer.nil? || URI(request.referrer).host != request.host
-      redirect_to root_path
     end
-  end
- end
+    def set_item
+      @item = Item.find(params[:id])
+    end
+    def restrict_direct_access
+     if request.referrer.nil? || URI(request.referrer).host != request.host
+       redirect_to root_path
+     end
+    end
+end
