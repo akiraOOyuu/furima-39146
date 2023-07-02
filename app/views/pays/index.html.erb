@@ -35,7 +35,7 @@
     <%# エラーメッセージを表示するテンプレ %>
     <%= render 'error_messages', model: @pay_deli %>
     <%# カード情報の入力 %>
-    <%= form_with model: @pay_deli, url: item_pays_path,id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    
     <div class='credit-card-form' >
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
@@ -73,6 +73,7 @@
     <%# /カード情報の入力 %>
     
     <%# 配送先の入力 %>
+    <%= form_with model: @pay_deli, url: item_pays_path,id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
     <div class='shipping-address-form'>
       <h1 class='info-input-haedline'>
         配送先入力
