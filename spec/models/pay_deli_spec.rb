@@ -3,8 +3,11 @@ require 'rails_helper'
 RSpec.describe PayDeli, type: :model do
   describe '決済情報の保存' do
     before do
-      user = FactoryBot.create(:user)
-      @pay_deli = PayDeli.new( user_id: user.id)
+      # user = FactoryBot.create(:user)
+      # @pay_deli = PayDeli.new( user_id: user.id)
+      user = FactoryBot.build(:user)
+  item = FactoryBot.build(:item, user: user)
+  @pay_deli = FactoryBot.build(:pay_deli, user_id: user.id, item_id: item.id)
     end
 
     context '内容に問題ない場合' do
