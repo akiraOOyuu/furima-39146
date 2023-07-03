@@ -42,6 +42,8 @@ class PaysController < ApplicationController
     def restrict_direct_access
       if @item.present?
         redirect_to root_path if @item.purchased?
+      elsif !user_signed_in?
+          redirect_to  user_session_path
       else
         redirect_to root_path
       end
