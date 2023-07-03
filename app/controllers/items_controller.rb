@@ -65,8 +65,10 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     end
     def restrict_direct_access
-     if request.referrer.nil? || URI(request.referrer).host != request.host
-       redirect_to root_path
-     end
+      if @item.present?
+        redirect_to root_path if @item.purchased?
+      else
+        redirect_to root_path
+      end
     end
 end

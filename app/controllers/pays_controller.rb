@@ -40,12 +40,10 @@ class PaysController < ApplicationController
         currency: 'jpy')
     end
     def restrict_direct_access
-      if request.referrer.nil? || URI(request.referrer).host != request.host
-        if !user_signed_in?
-          redirect_to  user_session_path
-        else
-          redirect_to root_path
-        end
+      if @item.present?
+        redirect_to root_path if @item.purchased?
+      else
+        redirect_to root_path
       end
     end
   end
