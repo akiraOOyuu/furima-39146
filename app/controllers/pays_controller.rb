@@ -4,7 +4,6 @@ class PaysController < ApplicationController
 
   def index
     @pay_deli = PayDeli.new
-    @pays = Pay.all
   end
   
   def create

@@ -6,6 +6,7 @@ FactoryBot.define do
      block          {"1-1"}
      phone_number   {"0901234678"}
      pay_id         {2}
-    # token {"tok_abcdefghijk00000000000000000"}
+    token           {"tok_abcdefghijk00000000000000000"}
+    association     :user
   end
 end
