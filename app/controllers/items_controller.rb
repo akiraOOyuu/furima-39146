@@ -26,7 +26,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
@@ -65,7 +64,7 @@ class ItemsController < ApplicationController
     def set_item
       @item = Item.find(params[:id])
     end
-    
+
     def restrict_direct_access
       if @item.pay.present? || @item.user_id != current_user.id
         redirect_to root_path 
