@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :restrict_direct_access, only: [:edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update ]
+  before_action :restrict_direct_access, only: [:edit, :update]
+  
 
 
   def index
@@ -64,11 +65,10 @@ class ItemsController < ApplicationController
     def set_item
       @item = Item.find(params[:id])
     end
+    
     def restrict_direct_access
-      if @item.present?
-        redirect_to root_path if @item.purchased?
-      else
-        redirect_to root_path
+      if @item.pay.present? || @item.user_id != current_user.id
+        redirect_to root_path 
       end
-    end
+  end
 end

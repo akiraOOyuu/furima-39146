@@ -1,6 +1,10 @@
 class PaysController < ApplicationController
-  before_action :restrict_direct_access, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :restrict_direct_access, only: [:index , :create]
+
+  
+
 
   def index
     @pay_deli = PayDeli.new
@@ -38,14 +42,12 @@ class PaysController < ApplicationController
         amount: @item.price,
         card: pay_params[:token],
         currency: 'jpy')
-    end
-    def restrict_direct_access
-      if @item.present?
-        redirect_to root_path if @item.purchased?
-      elsif !user_signed_in?
-          redirect_to  user_session_path
-      else
-        redirect_to root_path
       end
+      
+      def restrict_direct_access
+        if @item.pay.present? || @item.user_id == current_user.id
+          redirect_to root_path 
+
+        end
     end
-  end
+end
