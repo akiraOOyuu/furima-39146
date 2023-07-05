@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   belongs_to :user
-  # has_one :pay
+  has_one :pay
 
   
   validates :title          ,presence: true
