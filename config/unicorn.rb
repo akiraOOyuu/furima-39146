@@ -14,7 +14,7 @@ pid "#{app_path}/shared/tmp/pids/unicorn.pid"  # 「shared」の中を参照す�
 llisten "#{app_path}/shared/tmp/sockets/unicorn.sock"  # 「shared」の中を参照するよう変更
 
 #エラーのログを記録するファイルを指定
-listen "#{app_path}/shared/tmp/sockets/unicorn.sock"  # 「shared」の中を参照するよう変更
+stderr_path "#{app_path}/shared/log/unicorn.stderr.log"  # 「shared」の中を参照するよう変更
 
 #通常のログを記録するファイルを指定
 stdout_path "#{app_path}/shared/log/unicorn.stdout.log"  # 「shared」の中を参照するよう変更
